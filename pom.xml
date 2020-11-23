@@ -8,5 +8,18 @@
     <artifactId>Student Registration Project Driver</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.github.EthanPadden</groupId>
+            <artifactId>Student-Registration-Project</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 </project>
