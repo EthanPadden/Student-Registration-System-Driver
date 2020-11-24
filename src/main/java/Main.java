@@ -1,15 +1,20 @@
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
 
 public class Main {
     public static void main( String[] args ) {
         // Create students
-        Student student1 = new Student( 101, "Eric Gilroy", new DateTime( 1999, 3, 4, 0, 0 ) );
-        Student student2 = new Student( 102, "Caoimhe Donohoe", new DateTime( 1998, 5, 14, 0, 0 ) );
-        Student student3 = new Student( 103, "Jack Kennedy", new DateTime( 1999, 4, 16, 0, 0 ) );
-        Student student4 = new Student( 104, "Rachel Griffin", new DateTime( 2000, 11, 21, 0, 0 ) );
-        Student student5 = new Student( 105, "Louis Dunleavy", new DateTime( 2001, 9, 5, 0, 0 ) );
-        Student student6 = new Student( 106, "Laura Quinlivan", new DateTime( 1998, 7, 8, 0, 0 ) );
+        ArrayList< Student > students = new ArrayList< Student >();
+        students.add( new Student( 101, "Eric Gilroy", new DateTime( 1999, 3, 4, 0, 0 ) ) );
+        students.add( new Student( 102, "Caoimhe Donohoe", new DateTime( 1998, 5, 14, 0, 0 ) ) );
+        students.add( new Student( 103, "Jack Kennedy", new DateTime( 1999, 4, 16, 0, 0 ) ) );
+        students.add( new Student( 104, "Rachel Griffin", new DateTime( 2000, 11, 21, 0, 0 ) ) );
+        students.add( new Student( 105, "Louis Dunleavy", new DateTime( 2001, 9, 5, 0, 0 ) ) );
+        students.add( new Student( 106, "Laura Quinlivan", new DateTime( 1998, 7, 8, 0, 0 ) ) );
 
         // Create modules
         Module algorithms = new Module( "CT215" );
@@ -18,8 +23,11 @@ public class Main {
         Module electronics = new Module( "EE304" );
 
         // Create courses
-        final Course computerScience = new Course( "CS & IT", new DateTime(2017, 9, 1,0,0), new DateTime(2021, 5, 20,0,0));
-        Course electronicEngineering = new Course( "ECE", new DateTime(2016, 9, 1,0,0), new DateTime(2020, 5, 20,0,0));
+        Course computerScience = new Course( "CS & IT", new DateTime( 2017, 9, 1, 0, 0 ), new DateTime( 2021, 5, 20, 0, 0 ) );
+        Course electronicEngineering = new Course( "ECE", new DateTime( 2016, 9, 1, 0, 0 ), new DateTime( 2020, 5, 20, 0, 0 ) );
+        ArrayList<Course> courses = new ArrayList< Course >();
+        courses.add( computerScience );
+        courses.add( electronicEngineering );
 
         // Add modules to courses
         computerScience.addModule( algorithms );
@@ -38,33 +46,55 @@ public class Main {
         }
 
         // Add students to courses
-        computerScience.addStudent( student1 );
-        computerScience.addStudent( student2 );
-        computerScience.addStudent( student3 );
-        electronicEngineering.addStudent( student4 );
-        electronicEngineering.addStudent( student5 );
-        electronicEngineering.addStudent( student6 );
+        computerScience.addStudent( students.get( 0 ) );
+        computerScience.addStudent( students.get( 1 ) );
+        computerScience.addStudent( students.get( 2 ) );
+        electronicEngineering.addStudent( students.get( 3 ) );
+        electronicEngineering.addStudent( students.get( 4 ) );
+        electronicEngineering.addStudent( students.get( 5 ) );
 
         // Add courses to students
-        for (Student student: computerScience.getStudentsEnrolled()) {
+        for ( Student student : computerScience.getStudentsEnrolled() ) {
             student.addCourse( computerScience );
         }
-        for (Student student: electronicEngineering.getStudentsEnrolled()) {
+        for ( Student student : electronicEngineering.getStudentsEnrolled() ) {
             student.addCourse( electronicEngineering );
         }
 
         // Add computer science students to computer science modules
-        for (Student student: computerScience.getStudentsEnrolled()) {
-            for ( Module module: computerScience.getModules()) {
+        for ( Student student : computerScience.getStudentsEnrolled() ) {
+            for ( Module module : computerScience.getModules() ) {
                 module.addStudent( student );
             }
         }
 
         // Add electronic engineering students to electronic engineering modules
-        for (Student student: electronicEngineering.getStudentsEnrolled()) {
-            for ( Module module: electronicEngineering.getModules()) {
+        for ( Student student : electronicEngineering.getStudentsEnrolled() ) {
+            for ( Module module : electronicEngineering.getModules() ) {
                 module.addStudent( student );
             }
+        }
+
+        // Output computer science course information
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern( "MM/dd/yyyy" );
+        System.out.println( "COURSE INFORMATION" );
+        for(Course course : courses) {
+            System.out.println(
+                    String.format( "Course name: %s\nStart date: %s\nEnd date: %s",
+                            course.getName(),
+                            dateTimeFormatter.print( course.getStartDate() ),
+                            dateTimeFormatter.print( course.getEndDate() )
+                    )
+            );
+
+            // Output computer science modules
+            System.out.println( "Modules:" );
+            for ( Module module : course.getModules() ) {
+                System.out.println( module.getName() );
+            }
+
+            // Print new line
+            System.out.println();
         }
     }
 }
