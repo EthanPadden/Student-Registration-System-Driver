@@ -96,5 +96,21 @@ public class Main {
             // Print new line
             System.out.println();
         }
+
+        // Output student information
+        System.out.println( "Students enrolled:" );
+        for ( Student student : students ) {
+            String output = String.format( "%5s%20s", student.getId(), student.getUsername() );
+            output += "\n\tCourses:";
+            for ( Course course : student.getCourses() ) {
+                output += String.format( "\t%s", course.getName() );
+            }
+            output += "\n\tModules:";
+            for ( Module module : student.getModules() ) {
+                output += String.format( "\t%s", module.getName() );
+            }
+
+            System.out.println( output );
+        }
     }
 }
