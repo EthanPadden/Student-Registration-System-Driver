@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.github.EthanPadden</groupId>
             <artifactId>Student-Registration-Project</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
         </dependency>
     </dependencies>
 </project>
